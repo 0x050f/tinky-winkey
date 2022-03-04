@@ -6,15 +6,20 @@ DIR_INCLUDES = includes
 
 CFLAGS = /Wall /WX
 
+TEST_PATH = C:\Users\User\Documents
+
 all: create_dirs make_exe
 
 re: fclean all
+
+test: all
+		copy $(NAME) $(TEST_PATH)
 
 make_exe: $(NAME)
 
 {$(DIR_SRCS)}.c{$(DIR_OBJS)}.obj :
 		@echo Compiling...
-		cl $(CFLAGS) /c /Fo$(DIR_OBJS)\ /I$(DIR_INCLUDES) $<
+		cl $(CFLAGS) /c /Fo$(DIR_OBJS)\ /I$(DIR_INCLUDES)\ $<
 
 # link the files into an executable
 $(NAME): $(DIR_OBJS)\*.obj
