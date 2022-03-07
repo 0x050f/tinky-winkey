@@ -24,7 +24,7 @@ make_exe: $(NAME)
 # link the files into an executable
 $(NAME): $(DIR_OBJS)\*.obj
 		@echo Linking $(NAME)...
-		link /out:$(NAME) $(DIR_OBJS)\*.obj
+		link /out:$(NAME) $(DIR_OBJS)\*.obj user32.lib
 
 # create output directories
 create_dirs:

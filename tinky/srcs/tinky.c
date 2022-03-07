@@ -73,14 +73,7 @@ int			main(int ac, char **av)
 	}
 	int ret = 0;
 	if (!strcmp(av[1], "install"))
-	{
-		int size = strrchr(av[0], '\\') + 1 - av[0];
-		char *str = malloc(size + strlen(EXEC_NAME) + 1);
-		memcpy(str, av[0], size);
-		memcpy(str + size, EXEC_NAME, strlen(EXEC_NAME) + 1);
-		ret = install(scm, str);
-		free(str);
-	}
+		ret = install(scm, av[0]);
 	else if (!strcmp(av[1], "start"))
 		ret = start(scm);
 	else if (!strcmp(av[1], "stop"))

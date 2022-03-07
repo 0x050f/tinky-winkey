@@ -1,6 +1,11 @@
 #ifndef WINKEY_H
 # define WINKEY_H
 
-#include <stdio.h>
+# define WIN32_LEAN_AND_MEAN
+# include <windows.h>
+# include <conio.h>
+# include <winuser.h>
+# include <stdio.h>
+# include <stdlib.h>
 
 #endif
