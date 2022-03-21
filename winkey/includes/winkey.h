@@ -20,14 +20,14 @@ typedef struct		s_winkey
 	FILE			*stream;
 }					t_winkey;
 
-extern t_winkey g_winkey;
+extern t_winkey		g_winkey;
 
 /* log.c */
-void		log_window(SYSTEMTIME st, char *window_name);
-void		log_key(char *buffer, char *ptr);
+void				log_window(SYSTEMTIME st, char *window_name);
+void				log_key(char *buffer, char *ptr);
 
 /* hook.c */
-LRESULT __stdcall hook_callback(int n_code, WPARAM w_param, LPARAM l_param);
-LRESULT __stdcall win_event_proc_callback(HWINEVENTHOOK hWinEventHook, DWORD dwEvent, HWND hwnd, LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime);
+LRESULT __stdcall	hook_callback(int n_code, WPARAM w_param, LPARAM l_param);
+LRESULT __stdcall	win_event_proc_callback(HWINEVENTHOOK hWinEventHook, DWORD dwEvent, HWND hwnd, LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime);
 
 #endif

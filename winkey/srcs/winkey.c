@@ -1,6 +1,6 @@
 #include "winkey.h"
 
-t_winkey g_winkey;
+t_winkey	g_winkey;
 
 int			main(void)
 {

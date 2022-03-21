@@ -9,7 +9,7 @@ void		log_window(SYSTEMTIME st, char *window_name)
 	fclose(g_winkey.stream);
 }
 
-const char *special_codes[] =
+const char	*special_codes[] =
 {
 	[VK_BACK]				= "\\b",
 	[VK_TAB]				= "\\t",

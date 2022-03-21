@@ -1,6 +1,6 @@
 #include "winkey.h"
 
-LRESULT __stdcall hook_callback(int n_code, WPARAM w_param, LPARAM l_param)
+LRESULT __stdcall	hook_callback(int n_code, WPARAM w_param, LPARAM l_param)
 {
 	if (n_code >= 0)
 	{
@@ -66,7 +66,7 @@ LRESULT __stdcall hook_callback(int n_code, WPARAM w_param, LPARAM l_param)
 	return CallNextHookEx(g_winkey.hook_keyboard, n_code, w_param, l_param);
 }
 
-LRESULT __stdcall win_event_proc_callback(HWINEVENTHOOK hWinEventHook, DWORD dwEvent, HWND hwnd, LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime)
+LRESULT __stdcall	win_event_proc_callback(HWINEVENTHOOK hWinEventHook, DWORD dwEvent, HWND hwnd, LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime)
 {
 	(void)hWinEventHook, dwEvent, idObject, idChild, dwEventThread, dwmsEventTime;
 	GetWindowText(hwnd, g_winkey.window_title, sizeof(g_winkey.window_title));
