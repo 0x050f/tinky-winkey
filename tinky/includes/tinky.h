@@ -5,7 +5,8 @@
 # include <windows.h>
 # include <stdbool.h>
 # include <stdio.h>
-# include <malloc.h>
+# include <stdlib.h>
+# include <tlhelp32.h>
 
 # define SERVICE_NAME "tinky"
 # define EXEC_NAME "winkey.exe"
