@@ -10,7 +10,6 @@
 # include <stdlib.h>
 
 # define WINDOW_TITLE_SIZE	256
-
 # define LOG_FILE			"winkey.log"
 
 typedef struct		s_winkey
@@ -19,7 +18,7 @@ typedef struct		s_winkey
 	HWINEVENTHOOK	hook_event;
 	char			window_title[WINDOW_TITLE_SIZE];
 	char			window_prev[WINDOW_TITLE_SIZE];
-	char			path[256];
+	char			path[MAX_PATH];
 	FILE			*stream;
 }					t_winkey;
 

