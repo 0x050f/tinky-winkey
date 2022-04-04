@@ -2,7 +2,11 @@
 
 void		log_window(SYSTEMTIME st, char *window_name)
 {
-	fopen_s(&g_winkey.stream, g_winkey.path, "r");
+	if (fopen_s(&g_winkey.stream, g_winkey.path, "r"))
+	{
+		if (fopen_s(&g_winkey.stream, g_winkey.path, "w"))
+			return ;
+	}
 	fseek(g_winkey.stream, 0, SEEK_END);
 	int sz = ftell(g_winkey.stream);
 	fclose(g_winkey.stream);
