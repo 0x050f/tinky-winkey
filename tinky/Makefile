@@ -4,6 +4,14 @@ DIR_SRCS = srcs
 DIR_OBJS = objs
 DIR_INCLUDES = includes
 
+SRCS		=	$(DIR_SRCS)\tinky.c \
+				$(DIR_SRCS)\process.c \
+				$(DIR_SRCS)\service_handler.c \
+				$(DIR_SRCS)\options.c
+
+OBJS = $(SRCS:.c=.obj)
+OBJS = $(OBJS:srcs=objs)
+
 CFLAGS = /Wall /WX
 
 TEST_PATH = C:\Users\User\Documents
@@ -19,12 +27,13 @@ make_exe: $(NAME)
 
 {$(DIR_SRCS)}.c{$(DIR_OBJS)}.obj :
 		@echo Compiling...
-		cl $(CFLAGS) /c /Fo$(DIR_OBJS)\ /I$(DIR_INCLUDES)\ $<
+		cl /nologo $(CFLAGS) /c /Fo$(DIR_OBJS)\ /I$(DIR_INCLUDES)\ $<
 
 # link the files into an executable
-$(NAME): $(DIR_OBJS)\*.obj
+$(NAME): $(OBJS)
 		@echo Linking $(NAME)...
-		link /out:$(NAME) $(DIR_OBJS)\*.obj advapi32.lib
+		link /NOLOGO /out:$(NAME) $(OBJS) advapi32.lib
+		@echo Executable $(NAME) created.
 
 # create output directories
 create_dirs:

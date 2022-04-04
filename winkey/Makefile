@@ -4,6 +4,13 @@ DIR_SRCS = srcs
 DIR_OBJS = objs
 DIR_INCLUDES = includes
 
+SRCS		=	$(DIR_SRCS)\winkey.c \
+				$(DIR_SRCS)\hook.c \
+				$(DIR_SRCS)\log.c
+
+OBJS = $(SRCS:.c=.obj)
+OBJS = $(OBJS:srcs=objs)
+
 CFLAGS = /Wall /WX
 
 TEST_PATH = C:\Users\User\Documents
@@ -19,12 +26,13 @@ make_exe: $(NAME)
 
 {$(DIR_SRCS)}.c{$(DIR_OBJS)}.obj :
 		@echo Compiling...
-		cl $(CFLAGS) /c /Fo$(DIR_OBJS)\ /I$(DIR_INCLUDES)\ $<
+		cl /nologo $(CFLAGS) /c /Fo$(DIR_OBJS)\ /I$(DIR_INCLUDES)\ $<
 
 # link the files into an executable
-$(NAME): $(DIR_OBJS)\*.obj
+$(NAME): $(OBJS)
 		@echo Linking $(NAME)...
-		link /out:$(NAME) $(DIR_OBJS)\*.obj user32.lib
+		link /NOLOGO /out:$(NAME) $(OBJS) user32.lib
+		@echo Executable $(NAME) created.
 
 # create output directories
 create_dirs:
