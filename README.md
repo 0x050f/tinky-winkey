@@ -1,8 +1,15 @@
 # tinky-winkey
+Tinky-winkey is a keylogger running under a service using win32api.  
+`svc.exe` is the executable running the service named `tinky` and `winkey.exe` is the keylogger, it will store every keystroke using low-level hook under a file named `winkey.log` where the executable stand. 
 
 ## Compilation
 ```
-nmake all # Run it under tinky/ and winky/
+nmake {all,re,clean,fclean,test} # Run it under both \tinkey and \winkey
+```
+## Quick install
+You can run `build.bat` at the root of the repository to compile both tinky and winkey and copy executables.
+```
+.\build.bat {all,re,clean,fclean,test}
 ```
 ## Execution
 `svc.exe` and `winkey.exe` must be in the same directory. Then running as administrator:
@@ -15,7 +22,6 @@ nmake all # Run it under tinky/ and winky/
 The file `winkey.log` contains keylogger logs.
 
 ## VM install
-
  + Download Windows VM: https://developer.microsoft.com/en-us/windows/downloads/virtual-machines/
  + Download vim: https://www.vim.org/download.php
  + Download git: https://git-scm.com/download/win
