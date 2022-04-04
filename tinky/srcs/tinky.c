@@ -11,7 +11,7 @@ int			main(int ac, char **av)
 					strcmp(av[1], "stop") && \
 					strcmp(av[1], "delete")))
 	{
-		printf("Usage: %s {install,start,stop,delete}\n", strrchr(av[0], '\\') + 1);
+		printf("Usage: %s {install,start,stop,delete}\n", (strchr(av[0], '\\')) ? strrchr(av[0], '\\') + 1 : av[0]);
 		return (1);
 	}
 	else if (ac <= 1)
@@ -35,15 +35,18 @@ int			main(int ac, char **av)
 		printf("%s() failed, error: %ld\n", "OpenSCManager", GetLastError());
 		return (1);
 	}
-	int ret = 0;
+	int			ret = 0;
+	WCHAR		full_path[MAX_PATH];
+	char		path[MAX_PATH];
+	size_t		n = 0;
+
+	GetModuleFileNameW(NULL, full_path, MAX_PATH);
+	wcstombs_s(&n, path, MAX_PATH, full_path, wcslen(full_path));
 	if (!strcmp(av[1], "install"))
-		ret = install(scm, av[0]);
+		ret = install(scm, path);
 	else if (!strcmp(av[1], "start"))
 	{
-		char		path[MAX_PATH];
-
-		memcpy(path, av[0], strlen(av[0]) + 1);
-		memcpy(strrchr(path, '\\') + 1, EXEC_NAME, strlen(EXEC_NAME) + 1);
+		memcpy((strchr(path, '\\')) ? strrchr(path, '\\') + 1 : path, EXEC_NAME, strlen(EXEC_NAME) + 1);
 		ret = start(scm, path);
 	}
 	else if (!strcmp(av[1], "stop"))

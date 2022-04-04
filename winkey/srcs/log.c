@@ -2,11 +2,14 @@
 
 void		log_window(SYSTEMTIME st, char *window_name)
 {
+	/* Check if file exists */
 	if (fopen_s(&g_winkey.stream, g_winkey.path, "r"))
 	{
+		/* New file */
 		if (fopen_s(&g_winkey.stream, g_winkey.path, "w"))
 			return ;
 	}
+	/* Get size of the file */
 	fseek(g_winkey.stream, 0, SEEK_END);
 	int sz = ftell(g_winkey.stream);
 	fclose(g_winkey.stream);
