@@ -6,6 +6,8 @@ HANDLE					g_service_stop_event = INVALID_HANDLE_VALUE;
 
 int			main(int ac, char **av)
 {
+	int			ret = 0;
+
 	if (ac >= 2 && (strcmp(av[1], "install") && \
 					strcmp(av[1], "start") && \
 					strcmp(av[1], "stop") && \
@@ -32,10 +34,13 @@ int			main(int ac, char **av)
 	scm = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
 	if (!scm)
 	{
-		printf("%s() failed, error: %ld\n", "OpenSCManager", GetLastError());
+		ret = GetLastError();
+		if (ret == ERROR_ACCESS_DENIED)
+			printf("%s must be launched with admin rights\n", (strchr(av[0], '\\')) ? strrchr(av[0], '\\') + 1 : av[0]);
+		else
+			printf("%s() failed, error: %ld\n", "OpenSCManager", GetLastError());
 		return (1);
 	}
-	int			ret = 0;
 	WCHAR		full_path[MAX_PATH];
 	char		path[MAX_PATH];
 	size_t		n = 0;
