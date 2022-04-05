@@ -2,22 +2,34 @@
 
 int			delete(SC_HANDLE scm)
 {
-	SC_HANDLE scs = OpenService(scm, SERVICE_NAME, DELETE);
-	if (scs)
+	SC_HANDLE		scs = OpenService(scm, SERVICE_NAME, SERVICE_ALL_ACCESS);
+	if (!scs)
 	{
-		if (!DeleteService(scs))
-		{
-			printf("%s() failed, error: %ld\n", "DeleteService", GetLastError());
-			return (1);
-		}
+		printf("Service {%s} is not installed.\n", SERVICE_NAME);
+		return (1);
+	}
+	SERVICE_STATUS	status;
+
+	if (QueryServiceStatus(scs, &status))
+	{
+		if (status.dwCurrentState != SERVICE_STOPPED)
+			printf("Service {%s} started, must be stopped first.\n", SERVICE_NAME);
 		else
-			printf("Service {%s} deleted successfully.\n", SERVICE_NAME);
-		if (!CloseServiceHandle(scs))
-			printf("%s() failed, error: %ld\n", "CloseServiceHandle", GetLastError());
+		{
+			if (!DeleteService(scs))
+				printf("%s() failed, error: %ld\n", "DeleteService", GetLastError());
+			else
+			{
+				printf("Service {%s} deleted successfully.\n", SERVICE_NAME);
+				return (0);
+			}
+		}
 	}
 	else
-		printf("Service {%s} is not installed.\n", SERVICE_NAME);
-	return (0);
+		printf("%s() failed, error: %ld\n", "ControlService", GetLastError());
+	if (!CloseServiceHandle(scs))
+		printf("%s() failed, error: %ld\n", "CloseServiceHandle", GetLastError());
+	return (1);
 }
 
 int			install(SC_HANDLE scm, char *bin_path)
@@ -52,7 +64,10 @@ int			stop(SC_HANDLE scm)
 		}
 		printf("Service {%s} stopped successfully.\n", SERVICE_NAME);
 		if (!CloseServiceHandle(scs))
+		{
 			printf("%s() failed, error: %ld\n", "CloseServiceHandle", GetLastError());
+			return (1);
+		}
 	}
 	else
 		printf("Service {%s} is not installed.\n", SERVICE_NAME);
